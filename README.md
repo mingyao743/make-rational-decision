@@ -144,11 +144,11 @@ PI_CODING_AGENT_DIR=/path/to/agent-dir pi-web
 发布或推送到 git 后，用 `pi install` 安装。pi 会按约定自动发现根目录 `skills/`：
 
 ```bash
-# 从 git 安装（请把 <user> 替换为实际的 GitHub 用户/组织）
-pi install git:github.com/<user>/make-rational-decision
+# 从 git 安装
+pi install git:github.com/mingyao743/make-rational-decision
 
 # 项目本地安装（写入项目的 .pi/）
-pi install git:github.com/<user>/make-rational-decision -l
+pi install git:github.com/mingyao743/make-rational-decision -l
 
 # 发布到 npm 后
 pi install npm:make-rational-decision
