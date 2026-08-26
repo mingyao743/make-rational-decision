@@ -2,12 +2,7 @@
 
 > **科学的思考方式 + 足够的数据支撑 = 理性的决策**
 
-> 10 种经典分析方法的 TypeScript 扩展库 + [pi](https://github.com/earendil-works/pi-coding-agent) skills。
-
-本仓库包含两部分，二者协同工作：
-
-1. **`skills/`** — 10 个 pi [技能](https://github.com/earendil-works/pi-coding-agent)（Markdown `SKILL.md` 文件），教会智能体如何执行每种分析方法，外加 `skills/_shared/` 下一组跨技能复用的共享扩展。
-2. **`src/`** — TypeScript 库（`make-rational-decision`），提供类型化的数据结构、Mermaid 图表渲染、PDCA/SMART 追踪、研究协议、多视角输入合成器，以及按顺序串联各技能的工作流引擎。
+> 10 种经典分析方法的skills  [pi](https://github.com/earendil-works/pi-coding-agent)
 
 涵盖的 10 种分析方法：
 
@@ -30,7 +25,7 @@
 
 ## 示例
 
-三种「该不该买」决策示例，点击标题展开 / 收起：
+「该不该买」决策示例：
 
 <details>
 <summary>📷 该不该买相机（should buy camera）</summary>
