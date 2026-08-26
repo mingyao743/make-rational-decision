@@ -2,7 +2,7 @@
 
 > **科学的思考方式 + 足够的数据支撑 = 理性的决策**
 
-> 10 种经典分析方法的skills  [pi](https://github.com/earendil-works/pi-coding-agent)
+> 10 种经典分析方法的skills 
 
 涵盖的 10 种分析方法：
 
