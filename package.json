@@ -1,0 +1,29 @@
+{
+  "name": "analysis-tools",
+  "version": "1.0.0",
+  "description": "TypeScript extensions for the 10 analysis skills",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "analysis",
+    "skills",
+    "mermaid",
+    "pdca",
+    "smart",
+    "workflow"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.3",
+    "@mariozechner/pi-coding-agent": "^0.73.1"
+  }
+}
