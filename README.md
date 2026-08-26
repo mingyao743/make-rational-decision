@@ -1,5 +1,7 @@
 # make-rational-decision
 
+> **科学的思考方式 + 足够的数据支撑 = 理性的决策**
+
 > 10 种经典分析方法的 TypeScript 扩展库 + [pi](https://github.com/earendil-works/pi-coding-agent) skills。
 
 本仓库包含两部分，二者协同工作：
@@ -26,52 +28,30 @@
 
 ---
 
-## 项目结构
+## 示例
 
-```
-analyze-agent/
-├── skills/                      # pi 技能（运行时由智能体加载）
-│   ├── _shared/                 # 所有技能复用的跨切面扩展
-│   │   ├── diagram-renderer.md
-│   │   ├── examples-library.md
-│   │   ├── multi-input-protocol.md
-│   │   ├── research-protocol.md
-│   │   ├── skill-workflows.md
-│   │   └── tracking-system.md
-│   ├── 3w-analysis/SKILL.md
-│   ├── 5w2h-analysis/SKILL.md
-│   ├── bcg-matrix/SKILL.md
-│   ├── fishbone-analysis/SKILL.md
-│   ├── mece-analysis/SKILL.md
-│   ├── pdca-cycle/SKILL.md
-│   ├── pest-analysis/SKILL.md
-│   ├── six-thinking-hats/SKILL.md
-│   ├── smart-goals/SKILL.md
-│   └── swot-analysis/SKILL.md
-├── src/                         # 支撑技能的 TypeScript 库
-│   ├── index.ts                 # 统一出口（barrel export）
-│   ├── diagram-renderer/        # 为每个技能生成 Mermaid 图
-│   ├── tracking-system/         # PDCA 周期与 SMART 目标持久化
-│   ├── research-protocol/       # 外部数据采集与校验
-│   ├── workflow-engine/         # 多技能工作流编排
-│   └── input-synthesizer/       # 多参与者输入合并
-├── dist/                        # 编译产物（已 gitignore）
-├── 10-methods.md
-├── package.json
-└── tsconfig.json
-```
+三种「该不该买」决策示例，点击标题展开 / 收起：
 
-## TypeScript 模块
+<details>
+<summary>📷 该不该买相机（should buy camera）</summary>
 
-`src/` 下每个模块都对外暴露类型化的数据结构（位于 `types.ts`）及实现。它们与共享的 Markdown 扩展一一对应，使智能体与任何程序化消费方在数据形状上保持一致。
+![该不该买相机示例](images/should_buy_camera.png)
 
-| 模块 | 功能 |
-|--------|--------------|
-| `diagram-renderer` | 将技能输出转为 Mermaid 图表（鱼骨图、SWOT 网格、BCG 矩阵、PDCA 循环、MECE 树、六顶思考帽序列、3W 流程、5W2H 思维导图）。`DiagramData` 是覆盖全部 8 种图表类型的判别联合类型。 |
-| `tracking-system` | 持久化 PDCA 周期与 SMART 目标：`Baseline`、`PdcaCycle`、`SmartGoal`、`ReviewEntry`，外加 `MasterIndex` 与累积改进汇总。 |
-| `research-protocol` | 采集并为外部数据点分级（`SourceTier` T1–T5、`DataEffect`、`ConfidenceLevel`），服务于 PEST/SWOT/BCG。 |
-| `workflow-engine` | 将技能串联为可复用工作流（如*问题解决链*：MECE → Fishbone → 3W → SMART → PDCA），并记录各步骤执行情况。 |
-| `input-synthesizer` | 按维度合并多参与者输入（顺序 / 轮询 / 发散-收敛），支持专业权重与冲突检测。 |
+</details>
+
+<details>
+<summary>🧱 该不该买乐高（should buy lego）</summary>
+
+![该不该买乐高示例](images/should_buy_lego.png)
+
+</details>
+
+<details>
+<summary>🚗 该不该买新车（should buy new car）</summary>
+
+![该不该买新车示例](images/should_buy_new_car.png)
+
+</details>
 
 ## 快速开始
 
@@ -137,7 +117,7 @@ PI_CODING_AGENT_DIR=/path/to/agent-dir pi-web
 
 ### 3. 将本项目的技能接入 pi
 
-每个技能都是自包含的 `SKILL.md`（含 YAML front matter `name`/`description`），pi 会自动发现并可通过 `/skill:<name>` 调用；技能运行时引用 `skills/_shared/` 下的共享扩展。`dist/` 中的 TypeScript 类型供程序化消费方使用（见下文「使用库」），pi 运行时本身不加载它。两种接入方式择一：
+每个技能都是自包含的 `SKILL.md`（含 YAML front matter `name`/`description`），pi 会自动发现并可通过 `/skill:<name>` 调用；技能运行时引用 `skills/_shared/` 下的共享扩展。`dist/` 中的 TypeScript 类型供程序化消费方使用，pi 运行时本身不加载它。两种接入方式择一：
 
 **方式 A：作为 pi 包安装（推荐）**
 
@@ -160,25 +140,6 @@ pi config
 **方式 B：手动放入 skills 路径**
 
 将本仓库的 `skills/` 目录放入 pi 的技能发现路径之一：`~/.pi/agent/skills/`、`~/.agents/skills/`（全局），或项目内 `.pi/skills/`、`.agents/skills/`（从 `cwd` 向上直至 git 仓库根）。
-
-## 使用库
-
-```ts
-import { renderDiagram, type DiagramData } from 'make-rational-decision';
-
-const diagram: DiagramData = {
-  type: 'swot',
-  data: {
-    subject: '在 EMEA 推出产品 X',
-    strengths:    [{ text: '北美品牌强势', impact: 'high' }],
-    weaknesses:   [{ text: '无 EMEA 物流', impact: 'high' }],
-    opportunities:[{ text: '欧洲需求上升', impact: 'medium' }],
-    threats:      [{ text: '本地在位竞争者', impact: 'medium' }],
-  },
-};
-
-const mermaid = renderDiagram(diagram); // -> Mermaid 源码字符串
-```
 
 ## 许可证
 
